@@ -1,0 +1,13 @@
+*.out
+*.exe
+
+# Windows NTFS alternate data streams (appear as separate files under WSL)
+*:Zone.Identifier
+*:PG$Secure
+*:Avecto.Zone.Identifier
+
+# Other OS junk
+Thumbs.db
+desktop.ini
+.DS_Store
+~$*
