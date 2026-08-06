@@ -18,11 +18,11 @@
 
 **xv6 book**, `xv6-manual.pdf` at the repo root. Printed page = PDF page (1:1).
 
-| Chapter | Section | Printed pp. | PDF pp. | Covers |
-|---|---|---|---|---|
-| **Ch. 0** — OS interfaces | File descriptors | 10–13 | 10–13 | fd 0/1/2 convention, `dup`, inheritance across `fork`/`exec` |
-| **Ch. 1** — OS organization | The first system call: exec | 26–27 | 26–27 | `initcode` execs `/init`; console opened as fds 0/1/2; "The system is up" |
-| **Ch. 5** — Scheduling | Code: Wait, exit, and kill | 71–72 | 71–72 | zombie state, reparenting to `init`, why the parent frees the child |
+| Chapter | Section | Printed / PDF pp. | Covers |
+|---|---|---|---|
+| **Ch. 0** — OS interfaces | File descriptors | 10–13 | fd 0/1/2 convention, `dup`, inheritance across `fork`/`exec` |
+| **Ch. 1** — OS organization | The first system call: exec | 26–27 | `initcode` execs `/init`; console opened as fds 0/1/2; "The system is up" |
+| **Ch. 5** — Scheduling | Code: Wait, exit, and kill | 71–72 | zombie state, reparenting to `init`, why the parent frees the child |
 
 The manual's one-paragraph summary of this program is Ch. 1, p. 27:
 
