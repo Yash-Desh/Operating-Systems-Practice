@@ -1,6 +1,11 @@
 *.out
 *.exe
 
+# Compiled C demo binaries (extensionless): ignore everything under demos/
+# except the .c sources.
+demos/*
+!demos/*.c
+
 # Windows NTFS alternate data streams (appear as separate files under WSL)
 *:Zone.Identifier
 *:PG$Secure
