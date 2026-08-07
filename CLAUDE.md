@@ -8,10 +8,14 @@ A personal study repository for Operating Systems (UW-Madison CS537), not a soft
 
 ## Layout
 
-- `OSTEP/` — the OSTEP textbook chapters as PDFs, grouped into the four pillars: `1_Virtualization_CPU_3-11`, `2_Virtualization_Memory_12-24`, `3_Concurrency_25-34`, `4_Persistence_35-46`. Filenames are prefixed with the book's chapter number.
-- `interview_prep/` — long-form markdown study notes, one topic per file (snake_case names).
-- `demos/` — small self-contained C programs that prove a concept from the notes. Build artifacts (`a.out`, `*.out`, `*.exe`) are gitignored.
-- Root PDFs — Silberschatz *Operating System Concepts* 10th ed. and the xv6 manual, referenced by the notes.
+Top-level directories are numbered to give them a stable reading order.
+
+- `1_cs537_lecture_slides/` — course slides (`slides/`) and annotated notes (`notes/`) as PDFs.
+- `2_OSTEP/` — the OSTEP textbook chapters as PDFs, grouped into the four pillars: `1_Virtualization_CPU_3-11`, `2_Virtualization_Memory_12-24`, `3_Concurrency_25-34`, `4_Persistence_35-46`. Filenames are prefixed with the book's chapter number.
+- `3_xv6/` — the xv6 manual (`xv6-manual.pdf`).
+- `4_OS_Books/` — Silberschatz *Operating System Concepts* 10th ed.
+- `5_ldd3_pdf/` — *Linux Device Drivers* 3rd ed., one PDF per chapter (`ch01.pdf` … `ch18.pdf`).
+- `6_interview_prep/` — long-form markdown study notes, one topic per file (snake_case names), plus `demos/` holding the C programs that back them. Build artifacts (`a.out`, `*.out`, `*.exe`, and extensionless binaries under `demos/`) are gitignored.
 - `README.md` — includes an "Open Topics to Explore Deeper" list the user maintains; new topics get appended as numbered items.
 
 ## Building and running C demos
@@ -19,8 +23,8 @@ A personal study repository for Operating Systems (UW-Madison CS537), not a soft
 No build system — compile directly. Each demo's build/run commands are in a header comment at the top of the file. Concurrency demos need `-pthread`:
 
 ```bash
-gcc -Wall -o demos/thread_stack_sharing demos/thread_stack_sharing.c -pthread
-./demos/thread_stack_sharing
+gcc -Wall -o 6_interview_prep/demos/thread_stack_sharing 6_interview_prep/demos/thread_stack_sharing.c -pthread
+./6_interview_prep/demos/thread_stack_sharing
 ```
 
 ## Conventions for notes and demos

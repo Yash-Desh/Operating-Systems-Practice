@@ -3,8 +3,8 @@
 
 # Compiled C demo binaries (extensionless): ignore everything under demos/
 # except the .c sources.
-demos/*
-!demos/*.c
+6_interview_prep/demos/*
+!6_interview_prep/demos/*.c
 
 # Windows NTFS alternate data streams (appear as separate files under WSL)
 *:Zone.Identifier
