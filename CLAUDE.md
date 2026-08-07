@@ -15,7 +15,7 @@ Top-level directories are numbered to give them a stable reading order.
 - `3_xv6/` — the xv6 manual (`xv6-manual.pdf`).
 - `4_OS_Books/` — Silberschatz *Operating System Concepts* 10th ed.
 - `5_ldd3_pdf/` — *Linux Device Drivers* 3rd ed., one PDF per chapter (`ch01.pdf` … `ch18.pdf`).
-- `6_interview_prep/` — long-form markdown study notes, one topic per file (snake_case names).
+- `6_interview_prep/` — long-form markdown study notes, one topic per file. Names are snake_case with a numeric prefix giving reading order (`1_os_boot_to_first_process.md`, `2_init_the_first_user_process.md`, …); wikilinks between notes include that prefix.
 - `7_demos/` — small self-contained C programs that prove a concept from the notes. Build artifacts (`a.out`, `*.out`, `*.exe`, and the extensionless compiled binaries) are gitignored.
 - `README.md` — includes an "Open Topics to Explore Deeper" list the user maintains; new topics get appended as numbered items.
 

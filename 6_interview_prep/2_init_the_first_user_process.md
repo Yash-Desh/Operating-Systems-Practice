@@ -89,7 +89,7 @@ bring the system from "kernel is running" to "user can type a command."
      Without `init`, those slots would leak until the table filled.
    - The reason the *parent* must do the freeing is that a dying process is still
      running on its own kernel stack and page table and cannot release them
-     itself — see [[os_startup_boot_to_first_process]] §9, "Teardown."
+     itself — see [[1_os_boot_to_first_process]] §9, "Teardown."
 
 **7. Report failures to the console.**
    Prints a notice each time it starts a shell, and distinct messages if `fork`
@@ -128,7 +128,7 @@ Linux behaves the same way — killing pid 1 panics the kernel.
 
 ## Related notes
 
-- [[os_startup_boot_to_first_process]] — the full boot chain that produces pid 1,
+- [[1_os_boot_to_first_process]] — the full boot chain that produces pid 1,
   and the teardown path that reparents orphans to it.
-- [[kernel_vs_user_threads_and_linux_task_model]] — how Linux generalizes process
+- [[3_threads_and_linux_task_model]] — how Linux generalizes process
   creation through `clone()`.

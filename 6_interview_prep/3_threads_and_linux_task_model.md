@@ -85,7 +85,7 @@ kernel threads.
 |---|---|---|
 | Address space | Own, isolated (own page table) | Shared with peer threads |
 | Code / data / heap | Private | Shared |
-| Stack | Own | Own stack, but reachable by peers (see [[threads_share_stack_memory]]) |
+| Stack | Own | Own stack, but reachable by peers (see [[4_threads_share_stack_memory]]) |
 | Registers / PC | Own | Own |
 | Open files, signals | Private | Shared |
 | Creation cost | High (copy address space) | Low (share address space) |
@@ -200,5 +200,5 @@ shared flags:
 
 ### Related notes
 
-- [[threads_share_stack_memory]] — threads of the same process can access each
+- [[4_threads_share_stack_memory]] — threads of the same process can access each
   other's stack variables.

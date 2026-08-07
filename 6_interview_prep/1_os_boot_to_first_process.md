@@ -530,7 +530,7 @@ you fault with no handlers installed and the machine triple-faults.
 
 ## Related notes
 
-- [[kernel_vs_user_threads_and_linux_task_model]] — the Linux task model, and how
+- [[3_threads_and_linux_task_model]] — the Linux task model, and how
   `clone()` generalizes the process creation described here.
-- [[threads_share_stack_memory]] — the per-thread stacks that live inside the
+- [[4_threads_share_stack_memory]] — the per-thread stacks that live inside the
   user half of the address space set up in stage 5.

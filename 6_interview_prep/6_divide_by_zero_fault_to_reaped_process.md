@@ -200,7 +200,7 @@ re-executed**.
    waiting for a child to die.
 4. **Reparent every child to `init`**, waking `init` if any of those children are
    already zombies. This is the mechanism by which orphans get adopted rather than
-   leaking — see [[init_the_first_user_process]] §3, duty 6.
+   leaking — see [[2_init_the_first_user_process]] §3, duty 6.
 5. **Set its own state to zombie and call into the scheduler**, surrendering the
    CPU. That call never returns.
 
@@ -224,7 +224,7 @@ finished running for the last time by calling `swtch`."
 This is the same reason the scheduler executes on its own dedicated stack rather
 than borrowing the stack of whichever thread called into it — someone has to be
 standing on solid ground while the dying process's ground is removed. See
-[[os_startup_boot_to_first_process]] §9, "Teardown."
+[[1_os_boot_to_first_process]] §9, "Teardown."
 
 If the parent had already exited, `init` adopted this process in step 7.4, and
 `init`'s perpetual wait loop performs the reaping.
@@ -309,9 +309,9 @@ process."
 
 ## Related notes
 
-- [[init_the_first_user_process]] — who adopts the orphans this process leaves
+- [[2_init_the_first_user_process]] — who adopts the orphans this process leaves
   behind, and why pid 1 can never exit.
-- [[os_startup_boot_to_first_process]] — the boot chain that builds the IDT and
+- [[1_os_boot_to_first_process]] — the boot chain that builds the IDT and
   TSS referenced in §2, and the teardown path in §9.
-- [[threads_share_stack_memory]] — guard pages and the other way a process dies
+- [[4_threads_share_stack_memory]] — guard pages and the other way a process dies
   from its own stack.

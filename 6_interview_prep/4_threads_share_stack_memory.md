@@ -175,5 +175,5 @@ stack (TBs away under ASLR).
 
 ## Related notes
 
-- [[kernel_vs_user_threads_and_linux_task_model]] — kernel vs. user threads, the
+- [[3_threads_and_linux_task_model]] — kernel vs. user threads, the
   Linux task model, and thread context switches.
