@@ -15,7 +15,8 @@ Top-level directories are numbered to give them a stable reading order.
 - `3_xv6/` — the xv6 manual (`xv6-manual.pdf`).
 - `4_OS_Books/` — Silberschatz *Operating System Concepts* 10th ed.
 - `5_ldd3_pdf/` — *Linux Device Drivers* 3rd ed., one PDF per chapter (`ch01.pdf` … `ch18.pdf`).
-- `6_interview_prep/` — long-form markdown study notes, one topic per file (snake_case names), plus `demos/` holding the C programs that back them. Build artifacts (`a.out`, `*.out`, `*.exe`, and extensionless binaries under `demos/`) are gitignored.
+- `6_interview_prep/` — long-form markdown study notes, one topic per file (snake_case names).
+- `7_demos/` — small self-contained C programs that prove a concept from the notes. Build artifacts (`a.out`, `*.out`, `*.exe`, and the extensionless compiled binaries) are gitignored.
 - `README.md` — includes an "Open Topics to Explore Deeper" list the user maintains; new topics get appended as numbered items.
 
 ## Building and running C demos
@@ -23,8 +24,8 @@ Top-level directories are numbered to give them a stable reading order.
 No build system — compile directly. Each demo's build/run commands are in a header comment at the top of the file. Concurrency demos need `-pthread`:
 
 ```bash
-gcc -Wall -o 6_interview_prep/demos/thread_stack_sharing 6_interview_prep/demos/thread_stack_sharing.c -pthread
-./6_interview_prep/demos/thread_stack_sharing
+gcc -Wall -o 7_demos/thread_stack_sharing 7_demos/thread_stack_sharing.c -pthread
+./7_demos/thread_stack_sharing
 ```
 
 ## Conventions for notes and demos

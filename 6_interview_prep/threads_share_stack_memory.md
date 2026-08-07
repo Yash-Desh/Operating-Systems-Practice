@@ -35,7 +35,7 @@ using"). That is exactly why a pointer handed to another thread stays valid.
 ## Demo that proves it
 
 A runnable copy already lives in the repo at
-[`demos/thread_stack_sharing.c`](../demos/thread_stack_sharing.c).
+[`7_demos/thread_stack_sharing.c`](../7_demos/thread_stack_sharing.c).
 
 ```c
 #include <stdio.h>
@@ -109,13 +109,13 @@ is a separate mapping fronted by a **guard page**, which changes what happens on
 **1. Thread stacks are separate mappings with a guard page between them.**
 Each pthread stack is its own `mmap` region (8 MB by default here) with a **4 KB
 guard page** (`PROT_NONE`, shown as `---p` in `/proc/self/maps`) just below it.
-Adjacent stacks are separated by exactly that gap. Verified: `demos/thread_stack_layout.c`.
+Adjacent stacks are separated by exactly that gap. Verified: `7_demos/thread_stack_layout.c`.
 
 **2. Sequential overflow is TRAPPED, not spilled.**
 Ordinary overflow (deep recursion, large arrays touched page-by-page) grows the
 stack *downward* and hits the guard page first → **SIGSEGV**. It does **not**
 silently corrupt the neighbouring thread's stack. Verified:
-`demos/stack_guard_page.c` (overflower faults just below its own base; the
+`7_demos/stack_guard_page.c` (overflower faults just below its own base; the
 victim's canary stays intact).
 
 **3. But a single oversized frame can SKIP the guard (Stack Clash).**
@@ -128,7 +128,7 @@ This is CVE-2017-1000364.
 - **With** it (modern GCC default, verified `[enabled]` on this toolchain): the
   compiler emits per-page **stack probes** that hit the guard → clean SIGSEGV.
 
-Verified both ways: `demos/stack_clash.c`.
+Verified both ways: `7_demos/stack_clash.c`.
 
 **4. The main thread's stack is structurally different but equally protected.**
 
@@ -142,7 +142,7 @@ Verified both ways: `demos/stack_clash.c`.
 | Pointer write by another thread | yes (worker writes `main`'s var, above) | yes |
 | Clash if unmitigated | yes (compiler-codegen property) | yes |
 
-Verified: `demos/main_stack_overflow.c` — the main stack grows down to the 8 MB
+Verified: `7_demos/main_stack_overflow.c` — the main stack grows down to the 8 MB
 rlimit, then overflow **traps** below `[stack]`; it never reaches the pthread
 stack (TBs away under ASLR).
 
