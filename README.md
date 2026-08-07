@@ -51,4 +51,9 @@ lets say if h/w does the page walk, then to update pagetable entries you need ke
     17. Scheduler context/Interrupt context. 
 When the kernel runs in interrupt / system call -> it uses per-process kernel stack. 
 
-what is initramfs ? 
+34. what is initramfs ?
+35. IPC 
+36. Signals 
+37. interrupt inside an interrupt.
+37.b fault inside kernel ? 
+38. Difference between a seg fault & page fault. 

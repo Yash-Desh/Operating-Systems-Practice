@@ -29,5 +29,5 @@ These are established by the existing files — match them when creating or edit
 
 - **Header block.** Every note and demo starts with author (Yash Deshpande), date (`DD-MM-YYYY`), and the LLM model used (e.g. `Claude (Opus 4.8)`). Demos carry this as a C comment plus a `Build:`/`Run:` line.
 - **Cross-references.** Notes link to each other with Obsidian-style `[[note_filename_without_extension]]` wikilinks, and collect them under a "Related notes" section.
-- **Citations with page offsets.** Notes cite sources precisely and record the mapping between printed and PDF page numbers. For Silberschatz 10th ed. the offset is **printed page + 57 = PDF page**; the xv6 manual is 1:1. When adding Silberschatz citations, give both the printed page and the PDF page.
+- **Citations with page offsets.** Notes cite sources precisely and record the mapping between printed and PDF page numbers. Always mention both page numbers printed & pdf.
 - **Explanatory style.** Notes favor comparison tables, an "interview soundbite" that compresses the idea, and empirical backing (a `demos/` program) where a claim can be demonstrated in code.
