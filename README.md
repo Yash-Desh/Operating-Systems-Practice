@@ -40,8 +40,9 @@ So the the page table of each process is mapped within its own address space ?
 29. Who does the page walk ? s/w or h/w
 lets say if h/w does the page walk, then to update pagetable entries you need kernel software.
 30. Swapping page tables to disk
-31. What is a page fault ? page not allocated/lazy allocation/swapping
-32. What is kernel virtual memory ? 
+
+
+32. What is kernel virtual memory ? the part of virtual memory where the kernel is mapped
 
 
 
@@ -56,4 +57,16 @@ When the kernel runs in interrupt / system call -> it uses per-process kernel st
 36. Signals 
 37. interrupt inside an interrupt.
 37.b fault inside kernel ? 
+
+
 38. Difference between a seg fault & page fault. 
+    31. What is a page fault ? page not allocated/lazy allocation/swapping
+seg faults are just page faults that cannot be recovered. 
+
+39. Do locks disable interrupts ? 
+In user processes we don't, we kernel we do to avoid interrupting a 
+
+40. thread parent exit vs process parent exit before child 
+
+Confirmed: Linux kernel has its own page table & stack that belong
+to no other process. 

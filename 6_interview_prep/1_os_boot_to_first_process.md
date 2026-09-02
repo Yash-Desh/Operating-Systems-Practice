@@ -15,9 +15,8 @@
 6. [Stage 4: `main` — building the real kernel](#6-stage-4-main--building-the-real-kernel)
 7. [Stage 5: Fabricating the first process](#7-stage-5-fabricating-the-first-process)
 8. [The three stacks](#8-the-three-stacks)
-9. [Teardown: the other half of the lifecycle](#9-teardown-the-other-half-of-the-lifecycle)
-10. [What is xv6-specific vs. universal](#10-what-is-xv6-specific-vs-universal)
-11. [Interview soundbite](#11-interview-soundbite)
+9. [What is xv6-specific vs. universal](#9-what-is-xv6-specific-vs-universal)
+10. [Interview soundbite](#10-interview-soundbite)
 
 ---
 
@@ -345,12 +344,12 @@ kernel **hand-forges** one. The design principle (Ch. 1, p. 24):
 > the first process, though in the latter case the process will start executing
 > at user-space location zero rather than at a return from fork."
 
-### Allocating the slot
+### 1. Allocating the slot
 
 Scan the process table for an unused entry, mark it **EMBRYO** to claim it,
 assign a pid, allocate a kernel stack.
 
-### Forging the kernel stack
+### 2. Forging the kernel stack
 
 The stack is laid out so the process "returns" into code it never called
 (Figure 1-4, p. 23). From the top down: a trap frame, then the address of the
@@ -361,7 +360,7 @@ When the scheduler switches to it, the context is restored, execution begins at
 the fork-return routine, and *its* return address — planted just above — is the
 trap-return routine, which pops the trap frame into real registers.
 
-### Forging the trap frame
+### 3. Forging the trap frame
 
 No trap ever occurred, so the kernel writes what one *would* have left behind
 (Ch. 1, p. 25):
@@ -372,20 +371,37 @@ No trap ever occurred, so the kernel writes what one *would* have left behind
 User-mode code and data segments, interrupts enabled, stack pointer at the top
 of the single user page, instruction pointer at **virtual address 0**.
 
+step-4: Then `userinit` then calls the utility `setupkvm` to create the page table of the 
+first process & hence the address space. 
+
+From xv6 manual Chapter-2
+
+Allocate page for page directory first
+Then install all the kernel mappings, no user process mappings yet. 
+Then create the user process mappings.
+
+Physical memory allocation using a memory allocator for
+- page tables -> seen
+- process user memory
+- kernel stacks -> seen
+- pipe buffers
+The memory allocator maintains a list of free pages as a linked list
+
 ### The program that isn't a file
 
 The first process's program is not loaded from disk — it is a handful of
 instructions **linked into the kernel image**, copied into a freshly allocated
 page mapped at virtual 0.
 
+
+### Process is marked ready for scheduling
 Mark the process runnable. The scheduler picks it up, the forged stack unwinds
 through fork-return and trap-return, and the trap-return instruction drops the
 CPU into user mode at address 0.
 
-One wrinkle: the fork-return routine runs filesystem initialization **on its
-first invocation only**, because those routines can sleep and sleeping requires
-a process context that `main` does not have. So the filesystem becomes usable
-only after the first process is scheduled.
+### Running the first process
+Carries out the return-from-trap procedure i.e. the popping from kernel stack & returning
+in the user process init's context. 
 
 ### The first system call
 
@@ -430,7 +446,8 @@ register pointing at it, which is all a stack ever is.
 
 It is never abandoned. `main` never returns and ends in the scheduler, which
 never returns either — so that buffer becomes the CPU's **scheduler stack**
-permanently. That fact is load-bearing for teardown (see below).
+permanently. That fact is load-bearing for teardown — see
+[[3_process_teardown]].
 
 The per-process pair is described in Ch. 1, p. 21:
 
@@ -440,38 +457,7 @@ The per-process pair is described in Ch. 1, p. 21:
 
 ---
 
-## 9. Teardown: the other half of the lifecycle
-
-Creation's mirror image, and it explains a state that otherwise looks like a
-wart.
-
-**Exit** closes the process's open files, releases its working directory, wakes
-its parent, **reparents its children to the init process**, marks itself a
-zombie, and jumps into the scheduler, never to return. The init process exiting
-is a panic — pid 1 dying kills the system.
-
-**Wait** does the actual freeing: the kernel stack, the page table, and the
-process-table slot.
-
-**Why the parent must do it** (Ch. 5, p. 71):
-
-> "It is important that the parent process be the one to free `p->kstack` and
-> `p->pgdir`: when the child runs exit, its stack sits in the memory allocated as
-> `p->kstack` and it uses its own pagetable. They can only be freed after the
-> child process has finished running for the last time by calling `swtch` (via
-> `sched`). **This is one reason that the scheduler procedure runs on its own
-> stack** rather than on the stack of the thread that called `sched`."
-
-A process cannot free the ground it is standing on. The zombie state exists
-**entirely** because of that — and the scheduler's independent stack, the one
-`entry` set up in stage 3, is what makes the reclamation possible. Boot and
-teardown close the loop.
-
-Reparenting orphans to init is why every process always has a parent to reap it.
-
----
-
-## 10. What is xv6-specific vs. universal
+## 9. What is xv6-specific vs. universal
 
 Three layers, and they separate cleanly.
 
@@ -504,7 +490,7 @@ over; naming the boundary reads as understanding both the shape *and* its scope.
 
 ---
 
-## 11. Interview soundbite
+## 10. Interview soundbite
 
 > The BIOS loads a 512-byte boot sector, which switches to 32-bit protected mode
 > and reads the kernel ELF off disk to physical `0x100000` — low, because a small
@@ -534,3 +520,5 @@ you fault with no handlers installed and the machine triple-faults.
   `clone()` generalizes the process creation described here.
 - [[4_threads_share_stack_memory]] — the per-thread stacks that live inside the
   user half of the address space set up in stage 5.
+- [[3_process_teardown]] — the mirror image of stage 5: how a process is
+  dismantled and reaped.

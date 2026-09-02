@@ -224,7 +224,7 @@ finished running for the last time by calling `swtch`."
 This is the same reason the scheduler executes on its own dedicated stack rather
 than borrowing the stack of whichever thread called into it — someone has to be
 standing on solid ground while the dying process's ground is removed. See
-[[1_os_boot_to_first_process]] §9, "Teardown."
+[[3_process_teardown]].
 
 If the parent had already exited, `init` adopted this process in step 7.4, and
 `init`'s perpetual wait loop performs the reaping.
@@ -312,6 +312,8 @@ process."
 - [[2_init_the_first_user_process]] — who adopts the orphans this process leaves
   behind, and why pid 1 can never exit.
 - [[1_os_boot_to_first_process]] — the boot chain that builds the IDT and
-  TSS referenced in §2, and the teardown path in §9.
+  TSS referenced in §2.
+- [[3_process_teardown]] — the exit/zombie/reap path that §9 and §10 walk
+  through, stated on its own.
 - [[4_threads_share_stack_memory]] — guard pages and the other way a process dies
   from its own stack.
