@@ -16,3 +16,6 @@ Thumbs.db
 desktop.ini
 .DS_Store
 ~$*
+
+# Downloaded paper archives
+*.zip
